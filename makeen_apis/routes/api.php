@@ -36,8 +36,6 @@ Route::post('agent_form', 'ContactQueryController@agent_form');
 
 Route::get('get_all_queries' , 'ContactQueryController@get_all_queries');
 
-Route::put('update_exp/{id}','ExpAgsController@update_exp');
-
 Route::post('upload_media', 'UploadController@upload_media')->name('upload_media');
 
 Route::get('get_all_images', 'UploadController@get_all_images');
@@ -65,7 +63,7 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
-    Route::resource('/wishlist','WishlistController');
+    // Route::resource('/wishlist','WishlistController');
 });
 
 

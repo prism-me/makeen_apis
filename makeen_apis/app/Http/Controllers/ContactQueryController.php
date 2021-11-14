@@ -128,15 +128,15 @@ class ContactQueryController extends Controller
 
                 $i ++;
             }
-         }else{
-              echo json_encode(['message' =>'files are not uploaded' , 'status' =>404]);
-             
          }
         
-        }
+        }else{
+            echo json_encode(['message' =>'files are not uploaded' , 'status' =>404]);
+           
+       }
 
 
-        
+    }
         
 
         if(!$validator->fails()){
