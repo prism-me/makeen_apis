@@ -47,6 +47,13 @@ Route::delete('delete_images/{id}', 'UploadController@delete_images');
 Route::put('update_image/{file}/{id}', 'UploadController@update_image');
 
 
+Route::post('addColum', 'GeneralController@addColum');
+
+Route::post('changeColumType', 'GeneralController@changeColumType');
+
+Route::post('dropColum', 'GeneralController@dropColum');
+
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'

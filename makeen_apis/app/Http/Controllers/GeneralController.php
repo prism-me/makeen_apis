@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\General;
 use Illuminate\Http\Request;
 use BunnyCDN\Storage\BunnyCDNStorage;
-
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 class GeneralController extends Controller
 {
     /**
@@ -113,4 +114,42 @@ class GeneralController extends Controller
 
         return $list;   
     }
+
+
+
+
+    public function addColum(Request $request){
+
+        $newColumnType = $request->type;
+        $newColumnName = $request->colum;
+        $table = $request->table;
+        Schema::table( $table, function (Blueprint $table) use ($newColumnType, $newColumnName) {
+            $table->$newColumnType($newColumnName)->after('column')->nullable();
+        });
+    }
+
+
+    public function changeColumType(Request $request){
+
+        $newColumnType = $request->type;
+        $newColumnName = $request->colum;
+        $table = $request->table;
+        Schema::table( $table, function (Blueprint $table) use ($newColumnType, $newColumnName) {
+            $table->$newColumnType($newColumnName)->change();
+            // $table->text('column_name')
+        });
+    }
+
+    public function dropColum(Request $request){
+
+
+        $newColumnName = $request->colum;
+        $table = $request->table;
+        Schema::table( $table, function (Blueprint $table) use ($newColumnName) {
+            $table->dropColumn($newColumnName);
+        });
+    }
+
+
+
 }
