@@ -106,7 +106,7 @@ class SectionController extends Controller
 
         if( ! $validator->fails()){
 
-        $section = Section::where('_id',$section->_id)->update($request->all());
+        $section = Section::where('id',$section->id)->update($request->all());
 
         if($section){
             echo json_encode(['status'=>200,'message'=>'Section has been added']);

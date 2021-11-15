@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Career;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CareerController extends Controller
+class PropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class CareerController extends Controller
      */
     public function index()
     {
-        $career = Career::all();
-
-        echo json_encode([ 'data' => $career , 'status' => 200 ]);
+        $property = Property::with('location')->get();
+        echo json_encode(['data'=> $property , 'status'=>200]);
     }
 
     /**
@@ -39,15 +38,18 @@ class CareerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'designation' => 'required',
-            'description' => 'required',
+            'name' => 'required',
+            'category_type' => 'required',
+            'featured_image' => 'required',
+            'short_content' => 'required',
+            'long_description' => 'required'
         ]);
         
         if( ! $validator->fails()){
 
-            $career = Career::create($request->all());
+            $property = Property::create($request->all());
 
-            if($career){
+            if($property){
 
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);
             
@@ -55,8 +57,7 @@ class CareerController extends Controller
             
                 echo json_encode(['message'=>'Data has not been saved','status'=>404]);
             
-            }    
-       
+            }
         }
         else{
         
@@ -68,44 +69,65 @@ class CareerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Career  $career
+     * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function show(Career $career)
+    
+    public function show(Property $property)
     {
-        echo json_encode([ 'data' => $career , 'status' => 200 ]);
+    
+        if($property){
+            
+            echo json_encode(['data'=>$property , 'status'=> 200 ]);
+
+        } else{
+
+            echo json_encode(['data'=>'Not such property exit' , 'status'=> 404 ]);
+
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Career  $career
+     * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function edit(Career $career)
+    public function edit(Property $property)
     {
-        echo json_encode([ 'data' => $career , 'status' => 200 ]);
+        if($property){
+            
+            echo json_encode(['data'=>$property , 'status'=> 200 ]);
+
+        } else{
+
+            echo json_encode(['data'=>'Not such property exit' , 'status'=> 404 ]);
+
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Career  $career
+     * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Career $career)
+    public function update(Request $request, Property $property)
     {
         $validator = Validator::make($request->all(), [
-            'designation' => 'required',
-            'description' => 'required',
+            'name' => 'required',
+            'category_type' => 'required',
+            'featured_image' => 'required',
+            'short_content' => 'required',
+            'long_description' => 'required'
         ]);
         
         if( ! $validator->fails()){
 
-            $career = Career::where('id',$request->id)->update($request->all());
+            $property = Property::where('id',$property->id)->update($request->all());
 
-            if($career){
+            if($property){
 
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);
             
@@ -113,8 +135,7 @@ class CareerController extends Controller
             
                 echo json_encode(['message'=>'Data has not been saved','status'=>404]);
             
-            }    
-       
+            }
         }
         else{
         
@@ -126,12 +147,12 @@ class CareerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Career  $career
+     * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Career $career)
+    public function destroy(Property $property)
     {
-        if($career->delete()){
+        if($property->delete()){
 
             echo json_encode(['message'=>'Data has been deleted.','status'=>200]);
 

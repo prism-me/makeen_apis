@@ -44,6 +44,8 @@ Route::delete('delete_images/{id}', 'UploadController@delete_images');
 
 Route::put('update_image/{file}/{id}', 'UploadController@update_image');
 
+Route::resource('location', 'LocationController');
+
 
 Route::post('addColum', 'GeneralController@addColum');
 

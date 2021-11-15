@@ -26,6 +26,10 @@ class Property extends Model
         'amenities' => 'array',
     ];
 
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
+
 
     
 }

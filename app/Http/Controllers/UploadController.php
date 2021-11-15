@@ -99,9 +99,8 @@ class UploadController extends Controller
     }
 
     public function update_image($file , $id){
-
+      
         $existing_data = Upload::select('name')->where('_id',$id)->first();
-
         $existing_name = $existing_data->name;
 
         $without_ext_name= $this->slugify(preg_replace('/\..+$/', '', $file->getClientOriginalName()));

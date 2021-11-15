@@ -99,26 +99,16 @@ class ServiceController extends Controller
             'name' => 'required',
             'description' => 'required',
         ]);
-        
         if( ! $validator->fails()){
-
-            $service = Service::where('id', $service->id)->where($request->all());
-
+            $service = Service::where('id', $service->id)->update($request->all());
             if($service){
-
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);
-            
             }else{
-            
                 echo json_encode(['message'=>'Data has not been saved','status'=>404]);
-            
             }    
-       
         }
         else{
-        
             echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
-        
         }
     }
 
