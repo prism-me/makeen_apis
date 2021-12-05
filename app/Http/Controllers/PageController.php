@@ -104,14 +104,14 @@ class PageController extends Controller
             'meta_details' => 'required',
             'slug' => 'required',
         ]);
-        
+        $update = $request->except('updated_at','created_at');
         if($validator->fails()){
        
             echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
        
         }else{
 
-            $creatPage = Page::where('id',$page->id)->update($request->all());
+            $creatPage = Page::where('id',$page->id)->update($update);
 
             if($creatPage){
        

@@ -102,8 +102,9 @@ class CareerController extends Controller
         ]);
         
         if( ! $validator->fails()){
+            $update = $request->except('updated_at','created_at');
 
-            $career = Career::where('id',$career->id)->update($request->all());
+            $career = Career::where('id',$career->id)->update($update);
 
             if($career){
 

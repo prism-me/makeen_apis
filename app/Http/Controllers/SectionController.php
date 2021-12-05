@@ -38,7 +38,6 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-
             'name' => 'required',
             'page_id'=>'required',
             'content' => 'required',
@@ -82,6 +81,7 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
+       
         $sections = Section::all();
         return json_encode(['data' => $section , 'status' => 200]);
     }
@@ -95,6 +95,7 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
+       
         $validator = Validator::make($request->all(), [
 
             'name' => 'required',
@@ -103,10 +104,10 @@ class SectionController extends Controller
             'slug' => 'required',
 
         ]);
-
+      
         if( ! $validator->fails()){
-
-        $section = Section::where('id',$section->id)->update($request->all());
+        $update = $request->except('updated_at','created_at');
+        $section = Section::where('id',$section->id)->update($update);
 
         if($section){
             echo json_encode(['status'=>200,'message'=>'Section has been added']);

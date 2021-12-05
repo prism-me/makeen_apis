@@ -23,7 +23,7 @@ class CreatePropertiesTable extends Migration
             $table->string('banner_image')->nullable();
             $table->string('gallery_images')->nullable();
             $table->string('floor_plan_images')->nullable();
-            $table->string('video_images')->nullable();
+            $table->longText('video_images')->nullable();
             $table->string('images_360')->nullable();
             $table->text('short_content');
             $table->text('long_description');

@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,13 +26,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::resource('properties', 'PropertyController');
+Route::get('properties-search', 'PropertyController@search');
 Route::resource('sections', 'SectionController');
 Route::resource('news', 'NewsController');
 Route::resource('services', 'ServiceController');
 Route::resource('career', 'CareerController');
 Route::get('all_sections/{id}', 'SectionController@all_sections');
 Route::resource('pages', 'PageController');
+// Contact
 Route::post('contact_form', 'ContactQueryController@contact_form');
+Route::get('contact-list', 'ContactQueryController@get_all_queries');
 Route::post('agent_form', 'ContactQueryController@agent_form');
 
 Route::get('get_all_queries' , 'ContactQueryController@get_all_queries');
@@ -46,12 +50,25 @@ Route::put('update_image/{file}/{id}', 'UploadController@update_image');
 
 Route::resource('location', 'LocationController');
 
-
 Route::post('addColum', 'GeneralController@addColum');
 
 Route::post('changeColumType', 'GeneralController@changeColumType');
 
 Route::post('dropColum', 'GeneralController@dropColum');
+
+// About Us
+Route::resource('more-about', 'MoreAboutController');
+Route::get('about/{type}', 'MoreAboutController@about');
+
+// Buildings
+Route::resource('building', 'BuildingController');
+
+// Teams
+Route::resource('team', 'TeamController');
+
+// Todo
+Route::resource('todos', 'TodoController');
+
 
 
 Route::group([

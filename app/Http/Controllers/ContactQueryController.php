@@ -159,12 +159,8 @@ class ContactQueryController extends Controller
     }
 
     public function get_all_queries(){
-
-
         $data = ContactQuery::all();
-
         return $data;
-    
     }
 
 }

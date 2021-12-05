@@ -17,7 +17,7 @@ class CreateNewsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('banner_image')->nullable();
-            $table->string('featured_image')->nullable();
+            $table->longText('short_description')->nullable();
             $table->json('content');
             $table->json('meta_details')->nullable();
             $table->timestamps();

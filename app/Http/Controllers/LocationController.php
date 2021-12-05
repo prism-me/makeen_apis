@@ -110,7 +110,8 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-            $location = Location::where('id',$location->id)->update($request->all());
+            $update = $request->except('updated_at','created_at');
+            $location = Location::where('id',$location->id)->update($update);
             if($location){
 
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);

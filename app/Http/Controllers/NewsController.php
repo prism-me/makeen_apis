@@ -43,10 +43,11 @@ class NewsController extends Controller
             'content' => 'required',
             'meta_details' => 'required'
         ]);
+        $create = $request->except('updated_at');
         
         if( ! $validator->fails()){
 
-            $news = News::create($request->all());
+            $news = News::create($create);
 
             if($news){
 
@@ -97,16 +98,17 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
+      
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'banner_image' => 'required',
             'content' => 'required',
             'meta_details' => 'required'
         ]);
-        
+        $update = $request->except('updated_at','created_at');
         if( ! $validator->fails()){
 
-            $news_up = News::where('id' , $news->id)->update($request->all());
+            $news_up = News::where('id' , $news->id)->update($update);
 
             if($news_up){
 

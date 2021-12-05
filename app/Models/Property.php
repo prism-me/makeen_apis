@@ -24,11 +24,18 @@ class Property extends Model
         'video_images' => 'array',
         'images_360' => 'array',
         'amenities' => 'array',
+        'meta_details' => 'array',
     ];
 
     public function location(){
         return $this->belongsTo(Location::class);
     }
+
+    public function building(){
+        return $this->belongsTo(Building::class);
+    }
+    
+
 
 
     
