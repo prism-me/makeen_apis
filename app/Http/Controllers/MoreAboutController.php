@@ -58,7 +58,7 @@ class MoreAboutController extends Controller
      */
     public function show(MoreAbout $moreAbout)
     {
-        
+        echo json_encode(['data'=>$moreAbout]);
     }
 
     /**

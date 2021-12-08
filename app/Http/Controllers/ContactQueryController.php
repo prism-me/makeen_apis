@@ -67,24 +67,24 @@ class ContactQueryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             
-            "mk_company_name" => "required",
-            "mk_trade_license_number" => "required",
-            "mk_trade_license_file" => "required",
-            "mk_rera_orn_number" => "required",
-            "mk_rera_orn_file" => "required",
-            "mk_broker_name" =>"required",
-            "mk_broker_id_file" => "required",
-            "mk_area_specialty" => "required",
-            "mk_phone"=>"required",
-            "mk_email"=>"required",
-            "mk_noc_file"=>"required",
+                "mk_company_name" => "required",
+                "mk_trade_license_number" => "required",
+                "mk_trade_license_file" => "required",
+                "mk_rera_orn_number" => "required",
+                "mk_rera_orn_file" => "required",
+                "mk_broker_name" =>"required",
+                "mk_area_specialty" => "required",
+                "mk_broker_id" => "required",
+                "mk_phone"=>"required",
+                "mk_email"=>"required",
+                "mk_noc_file"=>"required",
 
         ]);
 
         if( ! $validator->fails()){
            
             
-        return 'check';
+  
 
         $data = $request['data'];
         

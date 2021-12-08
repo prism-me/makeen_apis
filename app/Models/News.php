@@ -15,4 +15,8 @@ class News extends Model
         'content' => 'array',
         'meta_details' => 'object',
     ];
+    public function getRouteKeyName(){
+
+        return 'slug';
+    }
 }

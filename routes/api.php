@@ -36,9 +36,9 @@ Route::resource('pages', 'PageController');
 // Contact
 Route::post('contact_form', 'ContactQueryController@contact_form');
 Route::get('contact-list', 'ContactQueryController@get_all_queries');
-Route::post('agent_form', 'ContactQueryController@agent_form');
+Route::post('agent-form', 'ContactQueryController@agent_form');
 
-Route::get('get_all_queries' , 'ContactQueryController@get_all_queries');
+Route::get('all-queries' , 'ContactQueryController@get_all_queries');
 
 Route::post('upload_media', 'UploadController@upload_media')->name('upload_media');
 
@@ -68,6 +68,9 @@ Route::resource('team', 'TeamController');
 
 // Todo
 Route::resource('todos', 'TodoController');
+
+// Property By Emirates
+Route::resource('emirate', 'EmirateController');
 
 
 

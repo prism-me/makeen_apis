@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\Emirate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class NewsController extends Controller
+class EmirateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::all();
-
-        echo json_encode([ 'data' => $news , 'status' => 200 ]);
+        $emirates = Emirate::all();
+        echo json_encode(['data'=> $emirates , 'status'=>200]);
     }
 
     /**
@@ -27,7 +26,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -39,17 +38,14 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'content' => 'required',
-            'meta_details' => 'required'
+            'name' => 'required',
+            'slug' => 'required',
         ]);
-        $create = $request->except('updated_at');
-        
         if( ! $validator->fails()){
 
-            $news = News::create($create);
+            $emirate = Emirate::create($request->all());
 
-            if($news){
+            if($emirate){
 
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);
             
@@ -57,8 +53,7 @@ class NewsController extends Controller
             
                 echo json_encode(['message'=>'Data has not been saved','status'=>404]);
             
-            }    
-       
+            }
         }
         else{
         
@@ -70,57 +65,60 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\News  $news
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show($id)
     {
-        echo json_encode([ 'data' => $news , 'status' => 200 ]);
+        $data = Emirate::where('id',$id)->get();
+        if($data){
+            return json_encode(['data'=> $data,'status'=>200]);
+        }else{
+            return json_encode(['data'=>'no record exit']);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\News  $news
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(News $news)
+    public function edit($id)
     {
-        echo json_encode([ 'data' => $news , 'status' => 200 ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\News  $news
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(Request $request, $id)
     {
-      
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'banner_image' => 'required',
-            'content' => 'required',
-            'meta_details' => 'required',
-            'slug' => 'required'
+            'name' => 'required',
+            'slug' => 'required',
         ]);
-        $update = $request->except('updated_at','created_at');
+       
+        
         if( ! $validator->fails()){
 
-            $news_up = News::where('id' , $news->id)->update($update);
+            $update = $request->except('updated_at','created_at');
 
-            if($news_up){
+            $emirate = Emirate::where('id',$id)->update($update);
 
-                echo json_encode(['message'=>'Data has been saved','status'=>200]);
+            if($emirate){
+
+                echo json_encode(['message'=>'Data has been updated','status'=>200]);
             
             }else{
             
                 echo json_encode(['message'=>'Data has not been saved','status'=>404]);
             
-            }    
-       
+            }
         }
         else{
         
@@ -132,12 +130,13 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\News  $news
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy($id)
     {
-        if($news->delete()){
+        $delete = Emirate::where('id',$id)->delete();
+        if($delete){
 
             echo json_encode(['message'=>'Data has been deleted.','status'=>200]);
 
