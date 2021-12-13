@@ -82,21 +82,23 @@ class ContactQueryController extends Controller
         ]);
 
         if( ! $validator->fails()){
-           
-            
-  
 
-        $data = $request['data'];
+        $data['mk_rera_orn_file'] = $request['mk_rera_orn_file'];
+        $data['mk_noc_file'] = $request['mk_noc_file'];
+        $data['mk_trade_license_file']= $request['mk_trade_license_file'];
+    
+  
         
-        
-        $images = $request->file('images');
-        
-        $list = [ 0=>'mk_trade_license_file', 1=>'mk_rera_orn_file',2=>'mk_broker_id_file' ,3 =>'mk_noc_file' ];
+        $list = [ 0=>'mk_trade_license_file', 1=>'mk_rera_orn_file',2 =>'mk_noc_file' ];
+       
+     
         
         $files = [];
+      
         
-        if($data && $images)
+        if( $request['mk_rera_orn_file'] &&  $request['mk_noc_file'] && $request['mk_trade_license_file'] )
         {  
+           
             
             $i =0 ;
             foreach($list as $single)
@@ -105,19 +107,20 @@ class ContactQueryController extends Controller
                 if($request->file($single)){
                 
                 $file=$request->file($single);
-                //$d = json_decode($d , true);
+                
+                // $d = json_decode($d , true);
                  
                 $without_ext_name= $this->slugify(preg_replace('/\..+$/', '', $file->getClientOriginalName()));
             
                 $name = $without_ext_name .'-'. time().rand(1,100).'.'.$file->extension();
                 $files[$i]['avatar'] = $name;
                 $files[$i]['url'] = 'https://makeen.b-cdn.net/forms/'. $name ;
-                $files[$i]['alt_tag'] = $d['alt_text'];  
-                $files[$i]['type'] = $type;  
+                $files[$i]['alt_tag'] = $file->getClientOriginalName() ;  
+                $files[$i]['type'] = 'type';  
 
-                if($this->bunnyCDNStorage->uploadFile($images[$i]->getPathName() , $this->storageZone."/images/{$name}")){
+                if($this->bunnyCDNStorage->uploadFile($file->getPathName() , $this->storageZone."/images/{$name}")){
                     
-                $isUploaded = Upload::create(['avatar'=> $name,'url' =>$files[$i]['url'] ,'alt_tag' => $files[$i]['alt_tag'] ,'type' =>'asdf']);
+               // $isUploaded = Upload::create(['avatar'=> $name,'url' =>$files[$i]['url'] ,'alt_tag' => $files[$i]['alt_tag'] ,'type' =>'asdf']);
                     
                 echo json_encode(['message' =>'media has uploaded.' , 'status' =>200]);
                 
@@ -158,11 +161,43 @@ class ContactQueryController extends Controller
         }
     }
 
+
+    public function get_all_agent(){
+        $data = Agent::all();
+        return $data;
+    }
+
     public function get_all_queries(){
         $data = ContactQuery::all();
         return $data;
     }
 
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+       // $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            echo 'n-a';
+        }
+
+        return $text;
+    }
 }
 
 

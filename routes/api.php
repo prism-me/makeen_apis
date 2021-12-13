@@ -37,6 +37,7 @@ Route::resource('pages', 'PageController');
 Route::post('contact_form', 'ContactQueryController@contact_form');
 Route::get('contact-list', 'ContactQueryController@get_all_queries');
 Route::post('agent-form', 'ContactQueryController@agent_form');
+Route::get('all-agent', 'ContactQueryController@get_all_agent');
 
 Route::get('all-queries' , 'ContactQueryController@get_all_queries');
 
@@ -71,6 +72,13 @@ Route::resource('todos', 'TodoController');
 
 // Property By Emirates
 Route::resource('emirate', 'EmirateController');
+
+
+// Review
+Route::resource('review', 'ReviewController');
+
+// Review
+Route::resource('investment', 'InvestmentController');
 
 
 

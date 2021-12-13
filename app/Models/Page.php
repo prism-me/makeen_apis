@@ -22,7 +22,7 @@ class Page extends Model
 
     protected $casts = [
         
-        'description' => 'array',
+        // 'description' => 'array',
         'meta_details' => 'array'
         
         ];

@@ -47,10 +47,8 @@ class PropertyController extends Controller
             'name' => 'required',
             'category_type' => 'required',
             'short_content' => 'required',
-            'long_description' => 'required',
-            'space' => 'required',
-            'bed' => 'required',
-            'bathroom' => 'required'
+            'long_description' => 'required'
+            
         ]);
         $create = $request->except('area','city','map');
         $location = $request->only('area','city','map');

@@ -12,7 +12,7 @@ class Service extends Model
     
     protected $guarded = [];
 
-    protected $casts = [
-        'description' => 'array',
-    ];
+    // protected $casts = [
+    //     'description' => 'object',
+    // ];
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Team;
+use App\Models\Investment;
 use Illuminate\Http\Request;
 use Validator;
 
-class TeamController extends Controller
+class InvestmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,18 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $team = Team::all();
-        return json_encode(['data'=>$team,'status'=>200]);
+        $investment = Investment::all();
+        return json_encode(['data'=>$investment,'status'=>200]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -28,23 +38,24 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'department' => 'required',
-            'name' => 'required',
-            'designation' => 'required',
-            'language' => 'required',
-            'experience' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+            'description' => 'required',
+            'completion_year' => 'required',
+            'summary' => 'required',
+            'ownership_type' => 'required',
+            'building_content' => 'required',
+            'amenities' => 'required',
             'location' => 'required',
-            'phone_number' => 'required',
-            'email' => 'required',
-            'linkdin' => 'required',
-            'instagram' => 'required',
+            'area' => 'required',
+            'parking' => 'required'
         ]);
 
         if( ! $validator->fails()){
-            $todo = Team::create($request->all());
+            $investment = Investment::create($request->all());
 
-            if($todo){
-                echo json_encode(['status'=>1,'message'=>'Your Team has been added']);
+            if($investment){
+                echo json_encode(['status'=>1,'message'=>'Your Investment has been added']);
             }else{
             echo json_encode(['status'=>0,'message'=>'Server Error while']);
 
@@ -58,14 +69,14 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show(Investment $investment)
     {
-        if($team){
+        if($investment){
             
-            echo json_encode(['data'=>$team , 'status'=> 200 ]);
+            echo json_encode(['data'=>$investment , 'status'=> 200 ]);
 
         } else{
 
@@ -75,13 +86,24 @@ class TeamController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Investment  $investment
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Investment $investment)
+    {
+        //
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(Request $request, Investment $investment)
     {
         $validator = Validator::make($request->all(), [
             'from' => 'required',
@@ -99,9 +121,9 @@ class TeamController extends Controller
 
         if( ! $validator->fails()){
             $update = $request->except('updated_at','created_at');
-            $team = Team::where('id',$team->id)->update($update);
+            $investment = Investment::where('id',$investment->id)->update($update);
 
-            if($team){
+            if($investment){
 
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);
             
@@ -111,7 +133,6 @@ class TeamController extends Controller
             
             }
         }else{
-
             echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
         }
     }
@@ -119,12 +140,12 @@ class TeamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \App\Models\Investment  $investment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function destroy(Investment $investment)
     {
-        if($team->delete()){
+        if($investment->delete()){
 
             echo json_encode(['message'=>'Data has been deleted.','status'=>200]);
 
