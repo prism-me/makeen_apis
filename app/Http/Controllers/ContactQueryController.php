@@ -66,23 +66,23 @@ class ContactQueryController extends Controller
 
     public function agent_form(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             
-        //         "mk_company_name" => "required",
-        //         "mk_trade_license_number" => "required",
-        //         "mk_trade_license_file" => "required",
-        //         "mk_rera_orn_number" => "required",
-        //         "mk_rera_orn_file" => "required",
-        //         "mk_broker_name" =>"required",
-        //         "mk_area_specialty" => "required",
-        //         "mk_broker_id" => "required",
-        //         "mk_phone"=>"required",
-        //         "mk_email"=>"required",
-        //         "mk_noc_file"=>"required",
+                "mk_company_name" => "required",
+                "mk_trade_license_number" => "required",
+                "mk_trade_license_file" => "required",
+                "mk_rera_orn_number" => "required",
+                "mk_rera_orn_file" => "required",
+                "mk_broker_name" =>"required",
+                "mk_area_specialty" => "required",
+                "mk_broker_id" => "required",
+                "mk_phone"=>"required",
+                "mk_email"=>"required",
+                "mk_noc_file"=>"required",
 
-        // ]);
+        ]);
 
-        // if( ! $validator->fails()){
+        if( ! $validator->fails()){
 
         $data['mk_rera_orn_file'] = $request['mk_rera_orn_file'];
         $data['mk_noc_file'] = $request['mk_noc_file'];
@@ -168,27 +168,12 @@ class ContactQueryController extends Controller
            
        }
 
-
-    
+        }
+        else{
         
-
-        // if(!$validator->fails()){
-
-        //     if(Agent::create($request->all())){
-
-        //         echo json_encode(['message'=>'Data has been saved.','status'=>200]);
-            
-        //     }else{
-            
-        //         echo json_encode(['message'=>'Data has not been saved.','status'=>404]);
-            
-        //     }
-        // }
-        // else{
+            echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
         
-        //     echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
-        
-        // }
+        }
     }
 
 
