@@ -20,7 +20,7 @@ class CreateReviewsTable extends Migration
             $table->string('phone');
             $table->string('comment');
             $table->string('image');
-            $table->string('flag')->default(0)->comment('0=>pending,1=>approve');
+            $table->tinyInteger('flag')->default(0)->comment('0=>pending,1=>approve');
             $table->timestamps();
         });
     }
