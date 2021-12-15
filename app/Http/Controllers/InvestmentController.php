@@ -37,22 +37,46 @@ class InvestmentController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'from' => 'required',
-            'to' => 'required',
-            'description' => 'required',
-            'completion_year' => 'required',
-            'summary' => 'required',
-            'ownership_type' => 'required',
-            'building_content' => 'required',
-            'amenities' => 'required',
-            'location' => 'required',
-            'area' => 'required',
-            'parking' => 'required'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'from' => 'required',
+        //     'to' => 'required',
+        //     'description' => 'required',
+        //     'completion_year' => 'required',
+        //     'summary' => 'required',
+        //     'ownership_type' => 'required',
+        //     'building_content' => 'required',
+        //     'amenities' => 'required',
+        //     'location' => 'required',
+        //     'area' => 'required',
+        //     'parking' => 'required'
+        // ]);
 
-        if( ! $validator->fails()){
-            $investment = Investment::create($request->all());
+        // if( ! $validator->fails()){
+        
+            return $file = $request->file('img');
+            
+            
+            $without_ext_name= $this->slugify(preg_replace('/\..+$/', '', $file->getClientOriginalName()));
+            
+        $name = $without_ext_name .'-'. time().rand(1,100).'.'.$file->extension();
+        $files['name'] = $name;
+        $files['url'] = 'https://makeen.b-cdn.net/images/'. $name ;
+        $files['alt_tag'] = time().rand(1,100);  
+
+        if($this->bunnyCDNStorage->uploadFile($file->getPathName() , $this->storageZone."/images/{$name}")){
+            
+        $isUpdated = Upload::where('_id' ,$id)->update(['name'=> $name,'url' =>$files['url']]);
+         
+        if(! $this->bunnyCDNStorage->deleteObject( '/makeen/images/'.$existing_name))
+        {
+            echo json_encode(['message' => 'Bucket error' , 'status' => 404]);
+        }
+
+        }else{
+
+            return $errors = ['message'=>'server issue','status'=>404 ,'image_name'=>$file->getClientOrignalName()];
+        }
+            
 
             if($investment){
                 echo json_encode(['status'=>1,'message'=>'Your Investment has been added']);
@@ -60,10 +84,10 @@ class InvestmentController extends Controller
             echo json_encode(['status'=>0,'message'=>'Server Error while']);
 
             }
-        }else{
+        // }else{
 
-            echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
-        }
+        //     echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
+        // }
     }
 
     /**
