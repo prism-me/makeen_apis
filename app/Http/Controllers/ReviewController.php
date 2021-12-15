@@ -90,7 +90,7 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        if($request->flag === 'pending'){
+        if($request->flag === 0 ){
             $data['flag'] =  0;
             $update =  Review::where('id',$review->id)->update($data);
         }else{

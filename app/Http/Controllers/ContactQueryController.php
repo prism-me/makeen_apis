@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactQuery;
 use App\Models\Agent;
+use App\Models\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File; 
@@ -21,7 +22,7 @@ class ContactQueryController extends Controller
 
     public $bunnyCDNStorage ;   
     public $storageZone = 'makeen';
-    public $directory = '/makeen/images';
+    public $directory = '/makeen/forms';
     public $access_key = 'ca77159b-71b5-4cc3-a8dc9785778b-1415-4486';
     //public $bunny ;
 
@@ -90,7 +91,7 @@ class ContactQueryController extends Controller
   
         
         $list = [ 0=>'mk_trade_license_file', 1=>'mk_rera_orn_file',2 =>'mk_noc_file' ];
-       
+            
      
         
         $files = [];
@@ -116,14 +117,16 @@ class ContactQueryController extends Controller
                 $files[$i]['avatar'] = $name;
                 $files[$i]['url'] = 'https://makeen.b-cdn.net/forms/'. $name ;
                 $files[$i]['alt_tag'] = $file->getClientOriginalName() ;  
-                $files[$i]['type'] = 'type';  
-
-                if($this->bunnyCDNStorage->uploadFile($file->getPathName() , $this->storageZone."/images/{$name}")){
-                    
-               // $isUploaded = Upload::create(['avatar'=> $name,'url' =>$files[$i]['url'] ,'alt_tag' => $files[$i]['alt_tag'] ,'type' =>'asdf']);
-                    
-                echo json_encode(['message' =>'media has uploaded.' , 'status' =>200]);
+                $files[$i]['type'] = 'type';
                 
+               
+
+                if($this->bunnyCDNStorage->uploadFile($file->getPathName() , $this->storageZone."/forms/{$name}")){
+                    
+                $isUploaded = Upload::create(['avatar'=> $name,'url' =>$files[$i]['url'] ,'alt_tag' => $files[$i]['alt_tag'] ,'type' =>'asdf']);
+               
+                // $agent = Agent::create();
+
                 }else{
         
                    return $errors = ['message'=>'server issue','status'=>404 ,'image_name'=>$file->getClientOrignalName()];
@@ -132,6 +135,9 @@ class ContactQueryController extends Controller
                 $i ++;
             }
          }
+         $single= new File();
+         $single->filenames=json_encode($data);
+         $file->save();
         
         }else{
             echo json_encode(['message' =>'files are not uploaded' , 'status' =>404]);
