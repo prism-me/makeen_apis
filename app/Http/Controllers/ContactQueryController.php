@@ -40,7 +40,7 @@ class ContactQueryController extends Controller
             "mk_phone" => "required",
             "mk_email" => "required",
             "mk_property_category" =>"required",
-            "mk_property_type" => "required",
+            // "mk_property_type" => "required",
             "mk_flag"=>"required",
 
         ]);
@@ -73,9 +73,9 @@ class ContactQueryController extends Controller
                 "mk_trade_license_file" => "required",
                 "mk_rera_orn_number" => "required",
                 "mk_rera_orn_file" => "required",
-                "mk_broker_name" =>"required",
+                // "mk_broker_name" =>"required",
                 "mk_area_specialty" => "required",
-                "mk_broker_id" => "required",
+                // "mk_broker_id" => "required",
                 "mk_phone"=>"required",
                 "mk_email"=>"required",
                 "mk_noc_file"=>"required",

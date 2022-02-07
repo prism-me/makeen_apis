@@ -20,6 +20,7 @@ class CreateMoreAboutsTable extends Migration
             $table->string('sub_title');
             $table->longText('description');
             $table->longText('featured_img')->nullable();
+            $table->longText('city')->nullable();
             $table->timestamps();
         });
     }

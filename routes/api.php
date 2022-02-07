@@ -79,6 +79,8 @@ Route::resource('review', 'ReviewController');
 
 // Review
 Route::resource('investment', 'InvestmentController');
+// Subscriber
+Route::resource('subscribers', 'SubscriberController');
 
 
 

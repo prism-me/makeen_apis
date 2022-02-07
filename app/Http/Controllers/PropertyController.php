@@ -6,7 +6,7 @@ use App\Models\Property;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use DB; 
+use DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
@@ -19,8 +19,8 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        
-        $property = Property::with('location','building')->get();
+
+        $property = Property::with('location','building','teams')->get();
         echo json_encode(['data'=> $property , 'status'=>200]);
     }
 
@@ -42,13 +42,13 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'category_type' => 'required',
             'short_content' => 'required',
             'long_description' => 'required'
-            
+
         ]);
         $create = $request->except('area','city','map');
         $location = $request->only('area','city','map');
@@ -60,17 +60,17 @@ class PropertyController extends Controller
             if($property){
 
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);
-            
+
             }else{
-            
+
                 echo json_encode(['message'=>'Data has not been saved','status'=>404]);
-            
+
             }
         }
         else{
-        
+
             echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
-        
+
         }
     }
 
@@ -80,13 +80,13 @@ class PropertyController extends Controller
      * @param  \App\Models\Property  $property
      * @return \Illuminate\Http\Response
      */
-    
+
     public function show(Property $property)
     {
-       $propertyDetail = Property::where('id',$property->id)->with('location','building')->get();
-      
+       $propertyDetail = Property::where('id',$property->id)->with('location','building','teams')->get();
+
         if($propertyDetail){
-           
+
             echo json_encode(['data'=>$propertyDetail , 'status'=> 200 ]);
 
         } else{
@@ -104,8 +104,8 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        
-        if($property){ 
+
+        if($property){
             echo json_encode(['data'=>$property , 'status'=> 200 ]);
 
         } else{
@@ -124,7 +124,7 @@ class PropertyController extends Controller
      */
     public function update(Request $request, Property $property)
     {
-       
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'category_type' => 'required',
@@ -132,27 +132,28 @@ class PropertyController extends Controller
             // 'short_content' => 'required',
             // 'long_description' => 'required'
         ]);
-       
-        
+
+
         if( ! $validator->fails()){
-            $updateProperty = $request->except('location','building','area','city','map','updated_at','created_at');
+            $updateProperty = $request->except('location','building','area','city','teams','map','updated_at','created_at');
             $updateLocation = $request->only('area','city','map');
             $propertyUpdate = Property::where('id',$property->id)->update($updateProperty);
             $locationUpdate = Location::where('id',$property->location_id)->update($updateLocation);
+        
             if($propertyUpdate){
 
                 echo json_encode(['message'=>'Data has been saved','status'=>200]);
-            
+
             }else{
-            
+
                 echo json_encode(['message'=>'Data has not been saved','status'=>404]);
-            
+
             }
         }
         else{
-        
+
             echo json_encode(['errors'=>$validator->errors(),'status'=>404]);
-        
+
         }
     }
 
@@ -183,13 +184,13 @@ class PropertyController extends Controller
         if($property){
 
             echo json_encode(['data' => $property , 'status' => 200]);
-        
+
         }else{
-        
+
             echo json_encode(['status'=>404,'message'=>'Error , while fetching data']);
-        
+
         }
 
     }
-   
+
 }

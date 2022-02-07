@@ -15,7 +15,7 @@ class Building extends Model
     protected $guarded = [];
     
     public function properties(){
-        return $this->hasOne(Property::class,'building_id','id')->select(['id','building_id','slug']);
+        return $this->hasOne(Property::class,'building_id','id')->select(['id','building_id','slug','space','price','end_price','end_area']);
     }
 
   

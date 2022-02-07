@@ -7,7 +7,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "corbpie/bunny-cdn-api": "^1.5",
-        "doctrine/dbal": "^3.1",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jenssegers/mongodb": "^3.8",
@@ -15,7 +14,6 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "platformcommunity/bunnycdn-storage": "^0.2.0",
-        "spatie/laravel-query-builder": "^4.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

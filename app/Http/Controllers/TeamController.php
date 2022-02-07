@@ -28,16 +28,9 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'department' => 'required',
+           
             'name' => 'required',
-            'designation' => 'required',
-            'language' => 'required',
-            'experience' => 'required',
-            'location' => 'required',
-            'phone_number' => 'required',
-            'email' => 'required',
-            'linkdin' => 'required',
-            'instagram' => 'required',
+
         ]);
 
         if( ! $validator->fails()){
@@ -84,17 +77,9 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         $validator = Validator::make($request->all(), [
-            'from' => 'required',
-            'to' => 'required',
-            'description' => 'required',
-            'completion_year' => 'required',
-            'summary' => 'required',
-            'ownership_type' => 'required',
-            'building_content' => 'required',
-            'amenities' => 'required',
-            'location' => 'required',
-            'area' => 'required',
-            'parking' => 'required'
+           
+            'name' => 'required',
+            
         ]);
 
         if( ! $validator->fails()){

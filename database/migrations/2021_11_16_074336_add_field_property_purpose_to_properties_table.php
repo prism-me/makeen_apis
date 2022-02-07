@@ -14,7 +14,7 @@ class AddFieldPropertyPurposeToPropertiesTable extends Migration
     public function up()
     {
         Schema::table('properties', function (Blueprint $table) {
-           $table->string('property_purpose');
+           $table->string('property_purpose')->nullable();
         });
     }
 

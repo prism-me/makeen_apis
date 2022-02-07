@@ -15,7 +15,7 @@ class MoreAboutController extends Controller
      */
     public function index()
     {
-        $about = MoreAbout::all();
+        $about = MoreAbout::orderBy('id', 'DESC')->get();
         return json_encode(['data'=>$about,'status'=>200]);
     }
 

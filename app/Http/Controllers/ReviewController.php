@@ -90,12 +90,19 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        if($request->flag === 0 ){
-            $data['flag'] =  0;
-            $update =  Review::where('id',$review->id)->update($data);
+        
+
+        $review->flag = $request->flag;
+        
+        // $update =  Review::where('id',$review->id)->update($flag);
+       
+        if($review->update()){
+            
+            echo json_encode(['message'=>'Data has been deleted.','status'=>200]);
+            
         }else{
-            $data['flag'] =  1;
-            $update =  Review::where('id',$review->id)->update($data);
+            
+           echo json_encode(['message'=>'Data has not been deleted.','status'=>404]);
         }
 
     }

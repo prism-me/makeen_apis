@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFieldPricePropertiesTable extends Migration
+class AddColumnToPropertiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddFieldPricePropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::table('properties', function(Blueprint $table){
-            $table->decimal('price')->nullable();
-           
+        Schema::table('properties', function (Blueprint $table) {
+            $table->string('end_price')->nullable();
+            $table->string('end_area')->nullable();
         });
     }
 
@@ -26,6 +26,8 @@ class AddFieldPricePropertiesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('properties', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -108,4 +108,11 @@ class BuildingController extends Controller
 
         }
     }
+    
+    public function area()
+    {
+         $building = Building::with('properties')->select('apace','price');
+         dd($building);
+        return json_encode(['data'=>$building,'status'=>200]);
+    }
 }

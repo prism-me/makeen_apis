@@ -72,7 +72,6 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        
         echo json_encode([ 'data' => $service , 'status' => 200 ]);
     }
 

@@ -10,7 +10,7 @@ class Property extends Model
     use HasFactory ;
 
     protected $table = 'properties';
-    
+
     protected $guarded = [];
 
     public function getRouteKeyName(){
@@ -34,9 +34,14 @@ class Property extends Model
     public function building(){
         return $this->belongsTo(Building::class);
     }
+
+    public function teams(){
+        
+        return $this->hasOne(Team::class,'id','team_id');
     
+    }
 
 
 
-    
+
 }
