@@ -15,7 +15,7 @@ class CareerController extends Controller
      */
     public function index()
     {
-        $career = Career::all();
+        $career = Career::all(); 
 
         echo json_encode([ 'data' => $career , 'status' => 200 ]);
     }
@@ -141,5 +141,9 @@ class CareerController extends Controller
             echo json_encode(['message'=>'Data has not been deleted.','status'=>404]);
 
         }
+    }
+
+    public function testing(){
+        
     }
 }
